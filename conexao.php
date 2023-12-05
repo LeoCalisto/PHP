@@ -73,14 +73,24 @@
    
 
     function cadastrarAluguel(){
+
         $cod_livro = $_POST["cod_livro"];
         $data = $_POST["data"];
         $tel = $_POST["tel"];
         $nome_cliente = $_POST["nome"];
+        $ver = mysqli_query($GLOBALS['conexao'], "SELECT * FROM livro WHERE codigo = '$cod_livro' AND status = 'disponível'");
 
-        $inserirAluguel = mysqli_query($GLOBALS['conexao'], "INSERT INTO aluguel(cod_livro,data,nome_cliente,contato) 
-        VALUES('$cod_livro','$data','$nome_cliente','$tel')");
+        if(mysqli_num_rows($ver) > 0){
+
+            $inserirAluguel = mysqli_query($GLOBALS['conexao'], "INSERT INTO aluguel(cod_livro,data,nome_cliente,contato) 
+            VALUES('$cod_livro','$data','$nome_cliente','$tel')");
+    
+            $atualizarDisponibilidade = mysqli_query($GLOBALS['conexao'], "UPDATE livro SET status = 'indisponível' WHERE codigo = '$cod_livro'");
+
+        } else {
+            print("<script> alert('Livro já alugado')</script>");
     }
+}
 
     function verDadosAluguel(){
         $ver = mysqli_query($GLOBALS['conexao'], "SELECT * FROM aluguel");
@@ -110,7 +120,10 @@
             echo "<td class='colum_menor'>".$dados["ano"]."</td>";
             echo "<td>".$dados["nome_cliente"]."</td>";
             echo "<td class='colum_menor'>".$dados["contato"]."</td>";
-            echo "<td class='colum_menor'><a id='btn_editar' href='index_biblioteca.php?cod_aluguel=$dados[cod_aluguel]'>Editar</a><a id='btn_apagar' name='del' href='index_biblioteca.php?alugdel=$dados[cod_aluguel]'>Apagar</a></td>";
+            echo "<td class='colum_menor'>";
+            echo "<a id='btn_editar' href='index_biblioteca.php?cod_aluguel=$dados[cod_aluguel]'>Editar</a>";
+            echo "<a id='btn_apagar' name='del' href='index_biblioteca.php?alugdel=$dados[cod_aluguel]'>Apagar</a>";
+            echo "</td>";
             echo "</tr>";
         }
     }
