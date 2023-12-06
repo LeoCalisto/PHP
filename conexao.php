@@ -48,7 +48,9 @@
             echo "<td class='colum_menor'>".$dados["ano"]."</td>";
             echo "<td class='colum_menor'>".$dados["genero"]."</td>";
             echo "<td class='colum_menor'>".$dados["status"]."</td>";
-            echo "<td class='colum_menor'><a id='btn_editar' href='index_biblioteca.php?codigo=$dados[codigo]'>Editar</a><a id='btn_apagar' name='del' href='index_biblioteca.php?coddel=$dados[codigo]'>Apagar</a></td>";
+            echo "<td class='colum_menor'>
+            <a id='btn_editar' href='index_biblioteca.php?codigo=$dados[codigo]'>Editar</a>
+            <a id='btn_apagar' name='del' href='index_biblioteca.php?coddel=$dados[codigo]'>Apagar</a></td>";
             echo "</tr>";
         }
     }
@@ -66,7 +68,9 @@
             echo "<td class='colum_menor'>".$dados["ano"]."</td>";
             echo "<td class='colum_menor'>".$dados["genero"]."</td>";
             echo "<td class='colum_menor'>".$dados["status"]."</td>";
-            echo "<td class='colum_menor'><a id='btn_editar' href='index_biblioteca.php?codigo=$dados[codigo]'>Editar</a><a id='btn_apagar' name='del' href='index_biblioteca.php?coddel=$dados[codigo]'>Apagar</a></td>";
+            echo "<td class='colum_menor'>
+            <a id='btn_editar' href='index_biblioteca.php?codigo=$dados[codigo]'>Editar</a>
+            <a id='btn_apagar' name='del' href='index_biblioteca.php?coddel=$dados[codigo]'>Apagar</a></td>";
             echo "</tr>";
         }
     }
@@ -102,7 +106,9 @@
             echo "<td class='colum_menor'>".$dados["data"]."</td>";
             echo "<td>".$dados["nome_cliente"]."</td>";
             echo "<td class='colum_menor'>".$dados["contato"]."</td>";
-            echo "<td class='colum_menor'><a id='btn_editar' href='index_biblioteca.php?cod_aluguel=$dados[cod_luguel]'>Editar</a><a id='btn_apagar' name='del' href='index_biblioteca.php?alugdel=$dados[cod_luguel]'>Apagar</a></td>";
+            echo "<td class='colum_menor'>
+            <a id='btn_editar' href='index_biblioteca.php?cod_aluguel=$dados[cod_luguel]'>Editar</a>
+            <a id='btn_apagar' name='del' href='index_biblioteca.php?alugdel=$dados[cod_luguel]'>Apagar</a></td>";
             echo "</tr>";
         }
     }
@@ -119,11 +125,14 @@
             echo "<td class='colum_menor'>".$dados["data"]."</td>";
             echo "<td>".$dados["nome_cliente"]."</td>";
             echo "<td class='colum_menor'>".$dados["contato"]."</td>";
-            echo "<td class='colum_menor'><a id='btn_editar' href='index_biblioteca.php?cod_aluguel=$dados[cod_luguel]'>Editar</a><a id='btn_apagar' name='del' href='index_biblioteca.php?alugdel=$dados[cod_luguel]'>Apagar</a></td>";
+            echo "<td class='colum_menor'>
+            <a id='btn_editar' href='index_biblioteca.php?cod_aluguel=$dados[cod_luguel]'>Editar</a>
+            <a id='btn_apagar' name='del' href='index_biblioteca.php?alugdel=$dados[cod_luguel]'>Apagar</a></td>";
             echo "</tr>";
         }
     }
    
+
     function alterar(){
 
         $titulo = $_POST["titulo"];
@@ -133,5 +142,17 @@
 
         $inserir = mysqli_query($GLOBALS['conexao'], "UPDATE livro SET titulo = '$titulo',autor = '$autor',ano = '$ano',genero = '$genero' 
         WHERE codigo = '$_GET[codigo]'");
+    }
+
+
+    function alterarAluguel(){
+
+        $cod_livro = $_POST["cod_livro"];
+        $data = $_POST["data"];
+        $nome_cliente = $_POST["nome"];
+        $contato = $_POST["tel"];
+
+        $inserir = mysqli_query($GLOBALS['conexao'], "UPDATE aluguel SET cod_livro = '$cod_livro', data = '$data', contato = '$contato',nome_cliente = '$nome_cliente' 
+        WHERE cod_luguel = '$_GET[cod_aluguel]'"); 
     }
 ?>

@@ -4,32 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema Biblioteca</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
     <?php 
         
         include_once('conexao.php');
- 
+
+        // Pega o parametro de coddel da URL e executa o delete 
         if (isset($_GET["coddel"])){
             
             $codigo = $_GET["coddel"];
             $dados = mysqli_query($GLOBALS['conexao'], "DELETE FROM livro WHERE codigo='$codigo'");
         }
-
+        // verifica se existe a variavel saveLivro(gerada ao cliclar em save) e executa a função de cadastro
         if (isset($_POST["saveLivro"])){
             cadastrarLivro();
         }
-
+        // Pega o parametro de coddel da URL e executa o delete no aluguel
         if (isset($_GET["alugdel"])){
             
             $cod_aluguel = $_GET["alugdel"];
             $dados = mysqli_query($GLOBALS['conexao'], "DELETE FROM aluguel WHERE cod_luguel='$cod_aluguel'");
         }
-
+        // verifica se existe a variavel saveAluguel(gerada ao cliclar em save) e executa a função de cadastro
         if (isset($_POST["saveAluguel"])){
             cadastrarAluguel();
         }
+
+        //escopo para pegar os dados no banco correspondente aquela linha da tabela_livro pegando o parametro pela URL
 
         if(isset($_GET["codigo"])){
 
@@ -42,8 +45,22 @@
             $autor = $dados["autor"];
             $ano = $dados["ano"];
             $genero = $dados["genero"];
-        }   
+        }
+        
+        //escopo para pegar os dados no banco correspondente aquela linha da tabela_aluguel pegando o parametro pela URL
 
+        if(isset($_GET["cod_aluguel"])){
+
+            $cod_aluguel = $_GET["cod_aluguel"];
+
+            $ver = mysqli_query($GLOBALS['conexao'], "SELECT * FROM aluguel WHERE cod_luguel = '$cod_aluguel'");
+            $dados = mysqli_fetch_assoc($ver);
+
+            $cod_livro = $dados["cod_livro"];
+            $data = $dados["data"];
+            $nome_cliente = $dados["nome_cliente"];
+            $contato = $dados["contato"];
+        }      
     ?>
    
     <header>Sistema de Biblioteca</header>
@@ -54,22 +71,22 @@
             
             <div  class="input_livro">
                 <label for="inome">Titulo:</label><br>
-                <input type="text" name="titulo" id="ititulo" value="<?php echo empty($_GET["codigo"]) ? '' : $titulo?>">
+                <input type="text" name="titulo" id="ititulo" value="<?php echo empty($_GET["codigo"]) ? '' : $titulo?>" require>
             </div>
 
             <div  class="input_livro">
                 <label for="iautor">Autor:</label><br>
-                <input type="text" name="autor" id="iautor" value="<?php echo empty($_GET["codigo"]) ? '' : $autor?>">
+                <input type="text" name="autor" id="iautor" value="<?php echo empty($_GET["codigo"]) ? '' : $autor?>" require>
             </div>
 
             <div class="input_livro">
                 <label for="iano">Ano:</label><br>
-                <input type="number" name="ano" id="iano" value="<?php echo empty($_GET["codigo"]) ? '' : $ano?>">
+                <input type="number" name="ano" id="iano" value="<?php echo empty($_GET["codigo"]) ? '' : $ano?>" require >
             </div>
 
             <div class="input_livro" >
                 <label for="igenero">Gênero:</label><br>
-                <input type="text" name="genero" id="igenero" value="<?php echo empty($_GET["codigo"]) ? '' : $genero?>">
+                <input type="text" name="genero" id="igenero" value="<?php echo empty($_GET["codigo"]) ? '' : $genero?>" require>
             </div>
 
             <div id="cent" class="input_livro">
@@ -116,6 +133,7 @@
             </tbody>
         </table>
     </div>
+    <!-- area de pesquisar livro-->
     <form id="div_busca_livro" action="" method="get" autocomplete="off">
         <input type="search" name="pesquisar" id="ipesquisar" placeholder="Inserir nome do livro ou codigo">
         <input type="submit" value="buscar">
@@ -132,27 +150,36 @@
                         <form action="" id="form_aluguel" method="post">
                             <div>
                                 <label for="icod">Cod.Livro:</label><br>
-                                <input type="number" name="cod_livro" id="icod">
+                                <input type="number" name="cod_livro" id="icod" value="<?php echo empty($_GET["cod_aluguel"]) ? '' : $cod_livro?>" require>
                             </div>
         
                             <div>
                                 <label for="idata">Data:</label><br>
-                                <input type="date" name="data" id="idata">
+                                <input type="date" name="data" id="idata" value="<?php echo empty($_GET["cod_aluguel"]) ? '' : $data?>" require>
                             </div>
 
                             <div>
                                 <label for="itel">Contato:</label><br>
-                                <input type="tel" name="tel" id="itel">
+                                <input type="tel" name="tel" id="itel" value="<?php echo empty($_GET["cod_aluguel"]) ? '' : $contato?>" require>
                             </div>
         
                             <div>
                                 <label for="inome">Cliente:</label><br>
-                                <input type="text" name="nome" id="inome" >
+                                <input type="text" name="nome" id="inome" value="<?php echo empty($_GET["cod_aluguel"]) ? '' : $nome_cliente?>" require>
                             </div>
 
                             <div id="div_btn_aluguel">
                                 <input type="submit" value="Salvar" name="saveAluguel" id="submit_aluguel" class="btn_aluguel">
                                 <input type="reset" value="Limpar" id="reset_aluguel"  class="btn_aluguel">
+                                <?php 
+                                    include_once('conexao.php');
+                                    if(isset($_GET["cod_aluguel"])){
+                                        echo "<input type='submit' value='Alterar' onmouseout='mudarUrl()' name='alterar_aluguel' class='btn_aluguel'>";
+                                    }
+                                    if (isset($_POST["alterar_aluguel"])){
+                                        alterarAluguel();
+                                    }
+                                ?>
                             </div>
                         </form>
                     </fieldset>
@@ -188,11 +215,13 @@
                 </td>
             </tr>
         </table>
+        <!-- area de pesquisar aluguel-->
         <form id="div_busca_emprestimo" method="get">
             <input type="text" name="pesquisar_aluguel" id="ipesquisar" placeholder="Insira o código do livro">
             <input type="submit" value="buscar" id="busca_emprestimo">
         </form>
     </div>
+    <!--script para reset de URL apagando os parametros passados no botão editar-->
     <script>
         function mudarUrl(){
             window.location = 'index_biblioteca.php';

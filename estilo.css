@@ -76,12 +76,12 @@ td{
 #table_livro td, #table_aluguel td{
     border: 1px solid rgba(0, 0, 0, 0.322);
 }
-#isubmit, #ireset, .btn_aluguel{
+.btn_livro, .btn_aluguel{
     display: inline-block;
     padding: 10px 10px;
-    margin: 0px 9px;
+    margin: 0px 3px;
 }
-#isubmit:hover, #ireset:hover, .btn_aluguel:hover{
+.btn_livro:hover, .btn_aluguel:hover{
     background-color: black;
     color: white;
     border-radius: 5px;
