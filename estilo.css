@@ -38,7 +38,7 @@ td{
 }
 .input_livro{
     display: inline-block;
-    margin: 0 35px;
+    margin-left: 35px;
 }
 #conteiner{
     height: 36vh;
@@ -78,8 +78,8 @@ td{
 }
 .btn_livro, .btn_aluguel{
     display: inline-block;
-    padding: 10px 10px;
-    margin: 0px 3px;
+    padding: 9px 9px;
+    margin: 0px 5px;
 }
 .btn_livro:hover, .btn_aluguel:hover{
     background-color: black;
@@ -88,7 +88,6 @@ td{
 }
 #div_btn_aluguel{
     text-align: center;
-    
 }
 input[type='text']{
     width: 200px;
@@ -96,6 +95,12 @@ input[type='text']{
 }
 input[type='number']{
     width: 70px;
+}
+#iano{
+    width: 50px;
+}
+#igenero{
+    width: 100px;
 }
 .colum_menor{
     width: 150px;

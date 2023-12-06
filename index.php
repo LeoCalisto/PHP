@@ -81,7 +81,7 @@
 
             <div class="input_livro">
                 <label for="iano">Ano:</label><br>
-                <input type="number" name="ano" id="iano" value="<?php echo empty($_GET["codigo"]) ? '' : $ano?>" require >
+                <input type="text" name="ano" id="iano" value="<?php echo empty($_GET["codigo"]) ? '' : $ano?>" maxlength="4" require >
             </div>
 
             <div class="input_livro" >
@@ -135,7 +135,7 @@
     </div>
     <!-- area de pesquisar livro-->
     <form id="div_busca_livro" action="" method="get" autocomplete="off">
-        <input type="search" name="pesquisar" id="ipesquisar" placeholder="Inserir nome do livro ou codigo">
+        <input type="search" name="pesquisar" id="ipesquisar" placeholder="Cod, titulo ou autor">
         <input type="submit" value="buscar">
     </form>
     <hr>
@@ -160,7 +160,7 @@
 
                             <div>
                                 <label for="itel">Contato:</label><br>
-                                <input type="tel" name="tel" id="itel" value="<?php echo empty($_GET["cod_aluguel"]) ? '' : $contato?>" maxlength="12" require>
+                                <input type="tel" name="tel" id="itel" value="<?php echo empty($_GET["cod_aluguel"]) ? '' : $contato?>" placeholder="Telefone" maxlength="12" require>
                             </div>
         
                             <div>
@@ -217,14 +217,14 @@
         </table>
         <!-- area de pesquisar aluguel-->
         <form id="div_busca_emprestimo" method="get">
-            <input type="text" name="pesquisar_aluguel" id="ipesquisar" placeholder="Insira o código do livro">
+            <input type="text" name="pesquisar_aluguel" id="ipesquisar" placeholder="cod do livro ou nome do locatário">
             <input type="submit" value="buscar" id="busca_emprestimo">
         </form>
     </div>
     <!--script para reset de URL apagando os parametros passados no botão editar-->
     <script>
         function mudarUrl(){
-            window.location = 'index_biblioteca.php';
+            window.location = 'index.php';
         }
     </script>
 </body>

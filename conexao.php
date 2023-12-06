@@ -49,8 +49,8 @@
             echo "<td class='colum_menor'>".$dados["genero"]."</td>";
             echo "<td class='colum_menor'>".$dados["status"]."</td>";
             echo "<td class='colum_menor'>
-            <a id='btn_editar' href='index_biblioteca.php?codigo=$dados[codigo]'>Editar</a>
-            <a id='btn_apagar' name='del' href='index_biblioteca.php?coddel=$dados[codigo]'>Apagar</a></td>";
+            <a id='btn_editar' href='index.php?codigo=$dados[codigo]'>Editar</a>
+            <a id='btn_apagar' name='del' href='index.php?coddel=$dados[codigo]'>Apagar</a></td>";
             echo "</tr>";
         }
     }
@@ -69,8 +69,8 @@
             echo "<td class='colum_menor'>".$dados["genero"]."</td>";
             echo "<td class='colum_menor'>".$dados["status"]."</td>";
             echo "<td class='colum_menor'>
-            <a id='btn_editar' href='index_biblioteca.php?codigo=$dados[codigo]'>Editar</a>
-            <a id='btn_apagar' name='del' href='index_biblioteca.php?coddel=$dados[codigo]'>Apagar</a></td>";
+            <a id='btn_editar' href='index.php?codigo=$dados[codigo]'>Editar</a>
+            <a id='btn_apagar' name='del' href='index.php?coddel=$dados[codigo]'>Apagar</a></td>";
             echo "</tr>";
         }
     }
@@ -107,8 +107,8 @@
             echo "<td>".$dados["nome_cliente"]."</td>";
             echo "<td class='colum_menor'>".$dados["contato"]."</td>";
             echo "<td class='colum_menor'>
-            <a id='btn_editar' href='index_biblioteca.php?cod_aluguel=$dados[cod_luguel]'>Editar</a>
-            <a id='btn_apagar' name='del' href='index_biblioteca.php?alugdel=$dados[cod_luguel]'>Apagar</a></td>";
+            <a id='btn_editar' href='index.php?cod_aluguel=$dados[cod_luguel]'>Editar</a>
+            <a id='btn_apagar' name='del' href='index.php?alugdel=$dados[cod_luguel]'>Apagar</a></td>";
             echo "</tr>";
         }
     }
@@ -126,8 +126,8 @@
             echo "<td>".$dados["nome_cliente"]."</td>";
             echo "<td class='colum_menor'>".$dados["contato"]."</td>";
             echo "<td class='colum_menor'>
-            <a id='btn_editar' href='index_biblioteca.php?cod_aluguel=$dados[cod_luguel]'>Editar</a>
-            <a id='btn_apagar' name='del' href='index_biblioteca.php?alugdel=$dados[cod_luguel]'>Apagar</a></td>";
+            <a id='btn_editar' href='index.php?cod_aluguel=$dados[cod_luguel]'>Editar</a>
+            <a id='btn_apagar' name='del' href='index.php?alugdel=$dados[cod_luguel]'>Apagar</a></td>";
             echo "</tr>";
         }
     }
