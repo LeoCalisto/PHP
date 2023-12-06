@@ -1,18 +1,18 @@
 <?php 
     $dbHost = 'localhost';
     $dbUsername = 'root';
-    $dbPassword = '1234';
+    $dbPassword = '';
     $dbName = 'biblioteca';
 
     $conexao = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
 
     $db = mysqli_query($GLOBALS['conexao'], "CREATE TABLE  IF NOT EXISTS livro(
         `codigo` INT NOT NULL AUTO_INCREMENT,
-        `titulo` VARCHAR(100) NULL,
-        `autor` VARCHAR(45) NULL,
-        `ano` INT NULL,
-        `genero` VARCHAR(45) NULL,
-        `status` VARCHAR(45) NULL,
+        `titulo` VARCHAR(100) NOT NULL,
+        `autor` VARCHAR(45) NOT NULL,
+        `ano` VARCHAR(4) NOT NULL,
+        `genero` VARCHAR(45) NOT NULL,
+        `status` VARCHAR(45) NOT NULL,
         PRIMARY KEY (`codigo`)
     )");
     $db2 = mysqli_query($GLOBALS['conexao'], "CREATE TABLE IF NOT EXISTS aluguel (
