@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema Biblioteca</title>
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <?php 
+        
         include_once('conexao.php');
  
         if (isset($_GET["coddel"])){
@@ -30,6 +31,19 @@
             cadastrarAluguel();
         }
 
+        if(isset($_GET["codigo"])){
+
+            $codigo = $_GET["codigo"];
+
+            $ver = mysqli_query($GLOBALS['conexao'], "SELECT * FROM livro WHERE codigo = '$codigo'");
+            $dados = mysqli_fetch_assoc($ver);
+
+            $titulo = $dados["titulo"];
+            $autor = $dados["autor"];
+            $ano = $dados["ano"];
+            $genero = $dados["genero"];
+        }   
+
     ?>
    
     <header>Sistema de Biblioteca</header>
@@ -40,27 +54,36 @@
             
             <div  class="input_livro">
                 <label for="inome">Titulo:</label><br>
-                <input type="text" name="titulo" id="ititulo">
+                <input type="text" name="titulo" id="ititulo" value="<?php echo empty($_GET["codigo"]) ? '' : $titulo?>">
             </div>
 
             <div  class="input_livro">
                 <label for="iautor">Autor:</label><br>
-                <input type="text" name="autor" id="iautor">
+                <input type="text" name="autor" id="iautor" value="<?php echo empty($_GET["codigo"]) ? '' : $autor?>">
             </div>
 
             <div class="input_livro">
                 <label for="iano">Ano:</label><br>
-                <input type="number" name="ano" id="iano">
+                <input type="number" name="ano" id="iano" value="<?php echo empty($_GET["codigo"]) ? '' : $ano?>">
             </div>
 
             <div class="input_livro" >
                 <label for="igenero">Gênero:</label><br>
-                <input type="text" name="genero" id="igenero">
+                <input type="text" name="genero" id="igenero" value="<?php echo empty($_GET["codigo"]) ? '' : $genero?>">
             </div>
 
             <div id="cent" class="input_livro">
-                <input type="submit" value="Salvar" name="saveLivro" id="isubmit">
-               <input type="reset" value="Limpar" name="clear" id="ireset">
+                <input type="submit" value="Salvar" name="saveLivro" class="btn_livro">
+                <input type="reset" value="Limpar" name="clear" class="btn_livro">
+                <?php 
+                    include_once('conexao.php');
+                    if(isset($_GET["codigo"])){
+                        echo "<input type='submit' value='Alterar' onmouseout='mudarUrl()' name='alter' class='btn_livro'>";
+                    }
+                    if (isset($_POST["alter"])){
+                        alterar();
+                    }
+                ?>
             </div>
         </form>
     </fieldset>
@@ -88,6 +111,7 @@
                     }else{
                         verDadosLivro();
                     }
+
                 ?>
             </tbody>
         </table>
@@ -123,7 +147,7 @@
         
                             <div>
                                 <label for="inome">Cliente:</label><br>
-                                <input type="text" name="nome" id="inome">
+                                <input type="text" name="nome" id="inome" >
                             </div>
 
                             <div id="div_btn_aluguel">
@@ -151,7 +175,7 @@
                                 
                                 <?php 
                                     include_once('conexao.php');
-                                    if (isset($_GET["buscar"])){
+                                    if (isset($_GET["pesquisar_aluguel"])){
                                         pesquisaAluguel();
                                     }else{
                                         verDadosAluguel();
@@ -164,10 +188,15 @@
                 </td>
             </tr>
         </table>
-        <div id="div_busca_emprestimo">
-            <input type="text" name="pesquisar" id="ipesquisar" placeholder="Insira o código do livro">
-            <input type="button" value="buscar" id="busca_emprestimo">
-        </div>
+        <form id="div_busca_emprestimo" method="get">
+            <input type="text" name="pesquisar_aluguel" id="ipesquisar" placeholder="Insira o código do livro">
+            <input type="submit" value="buscar" id="busca_emprestimo">
+        </form>
     </div>
+    <script>
+        function mudarUrl(){
+            window.location = 'index_biblioteca.php';
+        }
+    </script>
 </body>
 </html>

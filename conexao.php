@@ -89,8 +89,8 @@
 
         } else {
             print("<script> alert('Livro já alugado')</script>");
+        }
     }
-}
 
     function verDadosAluguel(){
         $ver = mysqli_query($GLOBALS['conexao'], "SELECT * FROM aluguel");
@@ -109,24 +109,29 @@
     
 
     function pesquisaAluguel(){
-        $chave = $_GET["buscar"];
-        $ver = mysqli_query($GLOBALS['conexao'], "SELECT * FROM livro WHERE cod_luguel LIKE '%$chave%' OR nome_cliente LIKE '%$chave%' ORDER BY cod_luguel DESC");
+        $chave = $_GET["pesquisar_aluguel"];
+        $ver = mysqli_query($GLOBALS['conexao'], "SELECT * FROM aluguel WHERE cod_luguel LIKE '%$chave%' OR nome_cliente LIKE '%$chave%' ORDER BY cod_luguel DESC");
         while ($dados = mysqli_fetch_assoc($ver)){
 
             echo "<tr>";
-            echo "<td class='colum_menor'>".$dados["cod_aluguel"]."</td>";
+            echo "<td class='colum_menor'>".$dados["cod_luguel"]."</td>";
             echo "<td class='colum_menor'>".$dados["cod_livro"]."</td>";
             echo "<td class='colum_menor'>".$dados["data"]."</td>";
-            echo "<td class='colum_menor'>".$dados["ano"]."</td>";
             echo "<td>".$dados["nome_cliente"]."</td>";
             echo "<td class='colum_menor'>".$dados["contato"]."</td>";
-            echo "<td class='colum_menor'>";
-            echo "<a id='btn_editar' href='index_biblioteca.php?cod_aluguel=$dados[cod_aluguel]'>Editar</a>";
-            echo "<a id='btn_apagar' name='del' href='index_biblioteca.php?alugdel=$dados[cod_aluguel]'>Apagar</a>";
-            echo "</td>";
+            echo "<td class='colum_menor'><a id='btn_editar' href='index_biblioteca.php?cod_aluguel=$dados[cod_luguel]'>Editar</a><a id='btn_apagar' name='del' href='index_biblioteca.php?alugdel=$dados[cod_luguel]'>Apagar</a></td>";
             echo "</tr>";
         }
     }
    
+    function alterar(){
 
+        $titulo = $_POST["titulo"];
+        $autor =  $_POST["autor"];
+        $ano =  $_POST["ano"];
+        $genero =  $_POST["genero"];
+
+        $inserir = mysqli_query($GLOBALS['conexao'], "UPDATE livro SET titulo = '$titulo',autor = '$autor',ano = '$ano',genero = '$genero' 
+        WHERE codigo = '$_GET[codigo]'");
+    }
 ?>
