@@ -160,7 +160,7 @@
 
                             <div>
                                 <label for="itel">Contato:</label><br>
-                                <input type="tel" name="tel" id="itel" value="<?php echo empty($_GET["cod_aluguel"]) ? '' : $contato?>" require>
+                                <input type="tel" name="tel" id="itel" value="<?php echo empty($_GET["cod_aluguel"]) ? '' : $contato?>" maxlength="12" require>
                             </div>
         
                             <div>
